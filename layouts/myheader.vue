@@ -3,8 +3,8 @@
         <div class="wrapper">
             <!-- logo -->
             <div class="left-wrapper v-link selected">
-                <img style="width: 50px" width="50" height="50" src="~assets/images/logo.png">
-                <span class="text">尚医通 预约挂号统一平台</span>
+                <img @click="index" style="width: 50px" width="50" height="50" src="~assets/images/logo.png">
+                <span @click="index" class="text">尚医通 预约挂号统一平台</span>
             </div>
             <!-- 右侧 -->
             <div class="right-wrapper">
@@ -16,5 +16,10 @@
 </template>
 <script>
 export default {
+    methods: {
+        index() {
+            window.location.href = '/'
+        }
+    }
 }
 </script>
