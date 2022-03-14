@@ -104,7 +104,7 @@ export default {
     };
   },
 
-  created() {
+  mounted() {
     this.hoscode = this.$route.params.hoscode;
 
     this.init();
