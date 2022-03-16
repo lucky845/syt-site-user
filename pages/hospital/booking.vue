@@ -229,6 +229,7 @@ import "~/assets/css/hospital.css";
 
 import hospitalApi from "@/api/yygh/hospital";
 import patientApi from "@/api/yygh/patient";
+import orderInfoApi from "@/api/yygh/orderinfo";
 
 export default {
   data() {
@@ -278,7 +279,31 @@ export default {
       this.patient = this.patientList[index];
     },
 
-    submitOrder() {},
+    submitOrder() {
+      // 判断是否选择了就诊人
+      if (this.patient.id == null) {
+        this.$message.error("请选择就诊人");
+        return;
+      }
+
+      // 防止重复提交
+      if (this.submitBnt == "正在提交...") {
+        this.$message.error("重复提交");
+        return;
+      }
+      // 将按钮设置为'正在提交...'
+      this.submitBnt = "正在提交...";
+      // 调用后端保存订单信息
+      orderInfoApi
+        .submitOrder(this.scheduleId, this.patient.id)
+        .then(response => {
+          let orderId = response.data.orderId;
+          window.location.href = "/order/show?orderId=" + orderId;
+        })
+        .catch(e => {
+          this.submitBnt = "确认挂号";
+        });
+    },
 
     addPatient() {
       window.location.href = "/patient/add";
